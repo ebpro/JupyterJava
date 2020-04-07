@@ -48,4 +48,9 @@ RUN jupyter labextension install @jupyterlab/toc
 # Launch the notebook server
 #WORKDIR $HOME
 # CMD ["jupyter", "lab", "--ip", "0.0.0.0"]
+
+RUN git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+ADD initzsh.sh .
+RUN ./initzsh.sh
+
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
