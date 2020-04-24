@@ -1,12 +1,10 @@
 #!/bin/bash
 
-. ./env.sh
-
-BASE=${REGISTRY}/${IMAGE_NAME}
-BRANCH=`git rev-parse --abbrev-ref HEAD`
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+. ${DIR}/env.sh
 
 docker build \
-	-t ${BASE}:`git log -1 --pretty=%h` \
-	-t ${BASE}:`git rev-parse --abbrev-ref HEAD` \
+	-t ${BASE}:$SHA \
+	-t ${BASE}:$BRANCH \
 	`[[ "$BRANCH" == "master" ]] && -t ${BASE}:latest` \
 	 .

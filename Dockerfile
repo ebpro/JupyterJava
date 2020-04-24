@@ -1,5 +1,5 @@
 # https://github.com/SpencerPark/ijava-binder/blob/master/Dockerfile
-FROM maven:3.6.3-jdk-11-openj9
+FROM maven:3.6.3-adoptopenjdk-14
 
 RUN apt-get update && \
     apt-get install --quiet --assume-yes python3-pip unzip zsh git vim \
