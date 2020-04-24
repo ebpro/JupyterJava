@@ -2,7 +2,7 @@
 FROM maven:3.6.3-jdk-11-openj9
 
 RUN apt-get update
-RUN apt-get install --quiet --assume-yes python3-pip unzip zsh git \
+RUN apt-get install --quiet --assume-yes python3-pip unzip zsh git vim\
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 # add requirements.txt, written this way to gracefully ignore a missing file
 COPY requirements.txt . 
