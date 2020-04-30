@@ -3,7 +3,7 @@ FROM maven:3.6.3-adoptopenjdk-14
 
 RUN apt-get update && \
     apt-get install --quiet --assume-yes --no-install-recommends \
-	python3-pip python3-setuptools unzip zsh git vim xz-utils && \
+	python3-pip python3-setuptools unzip zsh git vim xz-utils graphviz fonts-wqy-zenhei && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # add requirements.txt and install jupyter lab
