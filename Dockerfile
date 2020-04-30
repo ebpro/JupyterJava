@@ -73,4 +73,9 @@ RUN jupyter labextension install jupyterlab_hidecode
 RUN pip3 install jupyterlab_latex && \
 	jupyter labextension install @jupyterlab/latex
 
+RUN jupyter labextension install @aquirdturtle/collapsible_headings
+
+RUN pip install --upgrade jupyterlab-git && \
+	jupyter lab build
+
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
