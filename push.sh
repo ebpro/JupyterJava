@@ -7,7 +7,8 @@ echo $DIR
 BASE=${REGISTRY}/${IMAGE_NAME}
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 
+echo Branche:$BRANCH
+
 docker push ${BASE}:`git log -1 --pretty=%h`
 docker push ${BASE}:`git rev-parse --abbrev-ref HEAD`
-docker push `[[ "$BRANCH" == "master" ]] && -t ${BASE}:latest`
-	 .
+[[ "$BRANCH" == "master" ]] && docker push -t "${BASE}:latest"
