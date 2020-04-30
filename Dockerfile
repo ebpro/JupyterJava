@@ -70,4 +70,7 @@ COPY kernel.json /usr/share/jupyter/kernels/java/kernel.json
 
 RUN jupyter labextension install jupyterlab_hidecode
 
+RUN pip3 install jupyterlab_latex && \
+	jupyter labextension install @jupyterlab/latex
+
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
