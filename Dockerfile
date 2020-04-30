@@ -2,8 +2,9 @@
 FROM maven:3.6.3-adoptopenjdk-14
 
 RUN apt-get update && \
-    apt-get install --quiet --assume-yes python3-pip unzip zsh git vim \
-	&& apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install --quiet --assume-yes --no-install-recommends \
+	python3-pip python3-setuptools unzip zsh git vim xz-utils && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # add requirements.txt and install jupyter lab
 COPY requirements.txt . 
@@ -54,5 +55,11 @@ RUN jupyter labextension install @jupyterlab/toc
 RUN git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 ADD initzsh.sh .
 RUN ./initzsh.sh
+
+
+#Adds plantuml
+# tagged for stability ?
+# http://sourceforge.net/projects/plantuml/files/plantuml.1.2020.8.jar/download
+RUN curl -L http://sourceforge.net/projects/plantuml/files/plantuml.jar/download > /usr/local/bin/plantuml.jar
 
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
