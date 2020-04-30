@@ -68,4 +68,6 @@ ENV IJAVA_COMPILER_OPTS "--enable-preview -source 14"
 #Enable assertions and previews
 COPY kernel.json /usr/share/jupyter/kernels/java/kernel.json
 
+RUN jupyter labextension install jupyterlab_hidecode
+
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
