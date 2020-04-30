@@ -7,8 +7,9 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # add requirements.txt and install jupyter lab
-COPY requirements.txt . 
-RUN pip3 install --no-cache-dir -r requirements.txt jupyter jupyterlab
+#COPY requirements.txt . 
+#RUN pip3 install --no-cache-dir -r requirements.txt jupyter jupyterlab
+RUN pip3 install --no-cache-dir jupyter jupyterlab
 
 USER root
 
