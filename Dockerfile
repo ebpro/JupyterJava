@@ -3,7 +3,7 @@ FROM maven:3.6.3-adoptopenjdk-14
 
 RUN apt-get update && \
     apt-get install --quiet --assume-yes --no-install-recommends \
-	python3-pip python3-setuptools unzip zsh git vim xz-utils graphviz fonts-wqy-zenhei && \
+	python3-pip python3-setuptools unzip zsh git vim xz-utils graphviz fonts-wqy-zenhei inkscape && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # add requirements.txt and install jupyter lab
@@ -61,5 +61,10 @@ RUN ./initzsh.sh
 # tagged for stability ?
 # http://sourceforge.net/projects/plantuml/files/plantuml.1.2020.8.jar/download
 RUN curl -L http://sourceforge.net/projects/plantuml/files/plantuml.jar/download > /usr/local/bin/plantuml.jar
+
+ENV IJAVA_COMPILER_OPTS "--enable-preview -source 14"
+
+#Enable assertions and previews
+COPY kernel.json /usr/share/jupyter/kernels/java/kernel.json
 
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
