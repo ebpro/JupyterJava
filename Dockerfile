@@ -75,7 +75,10 @@ RUN pip3 install jupyterlab_latex && \
 
 RUN jupyter labextension install @aquirdturtle/collapsible_headings
 
-RUN pip install --upgrade jupyterlab-git && \
+RUN pip3 install --upgrade jupyterlab-git && \
 	jupyter lab build
+
+RUN pipi3 install jupyterlab_sql && \
+	jupyter serverextension enable jupyterlab_sql --py --sys-prefix
 
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
