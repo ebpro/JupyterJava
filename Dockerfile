@@ -75,7 +75,7 @@ RUN pip3 install jupyterlab_latex && \
 
 RUN jupyter labextension install @aquirdturtle/collapsible_headings
 
-RUN pip3 install --upgrade jupyterlab-git && \
+RUN pip3 install jupyterlab-git nbdime && \
 	jupyter lab build
 
 ENV SHELL=/usr/bin/zsh
