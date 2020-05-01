@@ -78,7 +78,6 @@ RUN jupyter labextension install @aquirdturtle/collapsible_headings
 RUN pip3 install --upgrade jupyterlab-git && \
 	jupyter lab build
 
-RUN pip3 install jupyterlab_sql && \
-	jupyter serverextension enable jupyterlab_sql --py --sys-prefix
+ENV SHELL=/usr/bin/zsh
 
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
