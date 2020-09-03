@@ -1,9 +1,26 @@
 # https://github.com/SpencerPark/ijava-binder/blob/master/Dockerfile
 FROM maven:3.6.3-adoptopenjdk-14
 
+#ADD https://github.com/just-containers/s6-overlay/releases/download/v2.0.0.1/s6-overlay-amd64.tar.gz /tmp/
+#RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C / --exclude='./bin' && tar xzf /tmp/s6-overlay-amd64.tar.gz -C /usr ./bin
+
 RUN apt-get update && \
     apt-get install --quiet --assume-yes --no-install-recommends \
-	python3-pip python3-setuptools unzip zsh git vim xz-utils graphviz fonts-wqy-zenhei inkscape texlive-xetex texlive-fonts-recommended texlive-generic-recommended pandoc && \
+	fonts-wqy-zenhei \
+	git \
+	graphviz \
+	init \
+	inkscape \
+	pandoc \
+	python3-pip \
+	python3-setuptools \
+	texlive-fonts-recommended \
+	texlive-generic-recommended \
+	texlive-xetex \
+	unzip zsh \
+	vim \
+	xz-utils \
+	&& \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # add requirements.txt and install jupyter lab
@@ -70,14 +87,21 @@ COPY kernel.json /usr/share/jupyter/kernels/java/kernel.json
 
 RUN jupyter labextension install jupyterlab_hidecode
 
-RUN pip3 install jupyterlab_latex && \
-	jupyter labextension install @jupyterlab/latex
+# WAITING A FIX FOR https://github.com/jupyterlab/jupyterlab-latex/issues/135
+#RUN pip3 install jupyterlab_latex && \
+#	jupyter labextension install @jupyterlab/latex
 
 RUN jupyter labextension install @aquirdturtle/collapsible_headings
 
 RUN pip3 install jupyterlab-git nbdime && \
 	jupyter lab build
 
+RUN pip3 install RISE
+
 ENV SHELL=/usr/bin/zsh
+
+ADD magics  /magics
+
+# ENTRYPOINT ["/init"]
 
 CMD ["jupyter","lab","--notebook-dir=/notebooks","--ip","0.0.0.0","--no-browser","--allow-root"]
