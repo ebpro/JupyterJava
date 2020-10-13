@@ -17,6 +17,7 @@ RUN apt-get update && \
 	texlive-fonts-recommended \
 	texlive-generic-recommended \
 	texlive-xetex \
+	tree \
 	unzip zsh \
 	vim \
 	xz-utils \
