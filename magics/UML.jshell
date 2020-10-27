@@ -53,7 +53,7 @@ IJava.getKernelInstance().getMagics().registerCellMagic("plantUMLFile", (args, b
      Object out;        
      try {        
         out=cellMagic("plantUML",args,Files.readString(Paths.get(filename)));
-        display(out,fileFormat.equals("SVG")?"image/svg+xml":"image/png");
+        //display(out,fileFormat.equals("SVG")?"image/svg+xml":"image/png");
         outList.add(out);
      } catch (java.io.IOException e) {}
     });    
