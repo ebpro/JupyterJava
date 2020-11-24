@@ -1,0 +1,3 @@
+#!/usr/bin/zsh
+exec s6-setuidgid user /runjupyter.sh
+

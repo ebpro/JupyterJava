@@ -1,4 +1,4 @@
-%jars /usr/local/bin/plantuml.jar
+//%jars /usr/local/bin/plantuml.jar
 
 import io.github.spencerpark.ijava.IJava;
 import net.sourceforge.plantuml.*;
