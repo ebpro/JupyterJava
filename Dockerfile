@@ -208,7 +208,10 @@ RUN mkdir -p $CODESERVEREXT_DIR && \
 	--install-extension vscjava.vscode-java-pack \
 	--install-extension vscode-icons-team.vscode-icons \
 	--install-extension SonarSource.sonarlint-vscode \
-	--install-extension GabrielBB.vscode-lombok && \
+	--install-extension GabrielBB.vscode-lombok \
+ 	--install-extension plantuml && \
+	mkdir -p /home/user/.config && \
+	mv ~/.config/code-server && /home/user/.config && \
 	groupadd codeserver && \
         chgrp -R codeserver $CODESERVEREXT_DIR &&\
         chmod 770 -R $CODESERVEREXT_DIR && \
