@@ -11,4 +11,5 @@ echo -e "\e[93m**** Running as UID:$(id -u user) GID:$(id -g user)  ****\e[38;5;
 chown -R user:user /home/user
 chown -R user:user /notebooks
 chown -R user:user /codeserver
+chown -R user:user /src
 chown -R user:user /opt/miniconda/envs/py38/lib/python3.8/site-packages/zsh_jupyter_kernel/log/ 

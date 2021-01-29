@@ -1,3 +1,4 @@
-#!/usr/bin/zsh
-exec s6-setuidgid user /runjupyter.sh
+#!/usr/bin/with-contenv /usr/bin/zsh
+echo NOTEBOOK_SRC_SUBDIR=$NOTEBOOK_SRC_SUBDIR
+exec s6-setuidgid user env NOTEBOOK_SRC_SUBDIR=$NOTEBOOK_SRC_SUBDIR /runjupyter.sh
 
