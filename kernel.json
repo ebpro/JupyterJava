@@ -3,5 +3,6 @@
     "display_name": "Java",
     "env": {},
     "interrupt_mode": "message",
-    "language": "java"
+    "language": "java",
+    "env": {"NOTEBOOK_SRC_SUBDIR":"sandbox"}
 }
