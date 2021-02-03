@@ -1,4 +1,6 @@
 #!/usr/bin/with-contenv /usr/bin/zsh
 echo NOTEBOOK_SRC_SUBDIR=$NOTEBOOK_SRC_SUBDIR
+echo PUID=$PUID
+echo PGID=$PGID
 exec s6-setuidgid user env NOTEBOOK_SRC_SUBDIR=$NOTEBOOK_SRC_SUBDIR /runjupyter.sh
 

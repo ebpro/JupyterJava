@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv /bin/zsh 
+#!/usr/bin/with-contenv /bin/zsh  
 export HOME=/home/user/
 
 export SDK_MAN=/opt/sdkman
