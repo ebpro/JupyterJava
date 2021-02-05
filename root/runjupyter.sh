@@ -7,7 +7,8 @@ export IJAVA_COMPILER_OPTS="-deprecation"
 export IJAVA_CLASSPATH="/home/user/lib/*.jar:/usr/local/bin/*.jar"
 export IJAVA_STARTUP_SCRIPTS_PATH="/magics/*"
 . /home/user/.zshrc
-/opt/miniconda/etc/profile.d/conda.sh && conda activate py38
+# /opt/miniconda/etc/profile.d/conda.sh && conda activate py38
+conda activate base
 
 export PATH=/opt/bin:$PATH
 export CODE_WORKINGDIR=/src
