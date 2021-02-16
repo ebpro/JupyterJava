@@ -16,7 +16,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
         tOqKZF5QSN6X937PTUpNBjUvLtTQ1ve1fp39uf/lEXPpFpOPL88LKnDBgbh7wkCp\
         m2KzLVGChf83MS0ShL6G9EQIAUxLm99VpgRjwqTQ/KfzGtpke1wqws4au0Ab4qPY\
         KXvMLSPLUp7cfulWvhmZSegr5AdhNw5KNizPqCJT8ZrGvgHypXyiFvvAH5YRtSsc\
-        Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m\
+       Zvo9GI2e2MaZyo9/lvb+LbLEJZKEQckqRj4P26gmASrZEPStwc+yqy1ShHLA0j6m\
         1QIDAQAB\
         -----END PUBLIC KEY-----" | sed 's/   */\n/g' > "/etc/apk/keys/sgerrand.rsa.pub" && \
     wget \
@@ -44,7 +44,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
     wget https://www.archlinux.org/packages/core/x86_64/zlib/download/ -O /tmp/zlib/zlib.tar.xz && \
     cd /tmp/zlib && tar xvf zlib.tar.xz && \
     cp -r usr/* /usr/glibc-compat/ && \
-    cd .. && rm -rf zlib && \
+    cd .. && rm -rf zlib && \ 
     apk add --no-cache \
 	bash \
 	bind-tools \
@@ -67,7 +67,7 @@ RUN ALPINE_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases
 	xz-libs \
 	zip \
 	zsh \
-	libc6-compat libstdc++6 \
+	libstdc++ \
    && rm -rf /var/cache/apk/*
 COPY s6-overlay-key.asc /tmp
 RUN echo "\e[93m**** Install S6 supervisor ****\e[38;5;241m" && \
@@ -246,7 +246,7 @@ RUN echo -e "\e[93m**** Install latest PlantUML ***\e[38;5;241m" && \
 
 RUN echo "conda activate base" >> $HOME/.zshrc && \
 	echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> $HOME/.zshrc && \
-	echo "export SDKMAN_DIR=/opt/sdkman" >> $HOME/.zshrc && \
+	echo "export SDKMAN_DIR=/opt/sdkman >> $HOME/.zshrc" >> $HOME/.zshrc && \
 	echo "[[ ! -f /opt/sdkman/bin/sdkman-init.sh ]] || source /opt/sdkman/bin/sdkman-init.sh" >> $HOME/.zshrc
 
 RUN echo -e "\e[93m**** Installs Code Server Web ****\e[38;5;241m"
