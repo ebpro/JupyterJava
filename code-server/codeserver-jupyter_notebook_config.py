@@ -10,10 +10,8 @@ def _get_code_server_cmd(port):
     # but /home/jovyan (or equivalent) in JupyterHubs
     working_dir = os.getenv("CODE_WORKINGDIR", ".")
 
-    extensions_dir = os.getenv("CODE_EXTENSIONSDIR", None)
+    extensions_dir = os.getenv("CODESERVEREXT_DIR", None)
     extra_extensions_dir = os.getenv("CODE_EXTRA_EXTENSIONSDIR", None)
-
-
 
     cmd = [
         executable,

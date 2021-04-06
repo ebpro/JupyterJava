@@ -1,15 +1,15 @@
 #!/usr/bin/with-contenv bash
 
-PUID=${PUID:-1000}
-PGID=${PGID:-1000}
+echo "### ENV ###"
+env
+echo "### ENV ###"
 
-groupmod -o -g "$PGID" user
-usermod -o -u "$PUID" user
 
-echo -e "\e[93m**** Running as UID:$(id -u user) GID:$(id -g user)  ****\e[38;5;241m"
+usermod -o -u "$NB_UID" "$USER"
 
-chown -R user:user /home/user
-chown -R user:user /notebooks
-chown -R user:user /codeserver
-chown -R user:user /src
-# chown -R user:user /opt/miniconda/envs/py38/lib/python3.8/site-packages/zsh_jupyter_kernel/log/ 
+echo -e "\e[93m**** Running as UID:$NB_UID ****\e[38;5;241m"
+
+chown -R "$USER" "$HOME"
+chown -R "$USER" /notebooks
+chown -R "$USER" /codeserver
+chown -R "$USER" /src
