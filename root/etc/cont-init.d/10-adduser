@@ -13,3 +13,4 @@ chown -R "$USER" "$HOME"
 chown -R "$USER" /notebooks
 chown -R "$USER" /codeserver
 chown -R "$USER" /src
+chown -R "$USER" /usr/local/lib/python3.9/dist-packages/zsh_jupyter_kernel/log

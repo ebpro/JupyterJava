@@ -67,8 +67,9 @@ RUN echo -e "\e[93m**** Install Java Kernel for Jupyter ****\e[38;5;241m" && \
  	curl -sL https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip -o /tmp/ijava-kernel.zip && \
  	unzip /tmp/ijava-kernel.zip -d /tmp/ijava-kernel && \
   	cd /tmp/ijava-kernel && \
+	python3 install.py --sys-prefix && \
   	# python3 install.py  && \
-	jupyter kernelspec install --user  java/ && \
+	# jupyter kernelspec install --user  java/ && \
   	cd && rm -rf /tmp/ijava-kernel /tmp/ijava-kernel.zip && \
     	echo -e "\e[93m**** Install ZSH Kernel for Jupyter ****\e[38;5;241m" && \
 	python3 -mpip install notebook zsh_jupyter_kernel \
@@ -169,17 +170,19 @@ RUN echo -e "\e[93m**** Install Java Kernel for Jupyter ****\e[38;5;241m" && \
         curl -sL https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip -o /tmp/ijava-kernel.zip && \
         unzip /tmp/ijava-kernel.zip -d /tmp/ijava-kernel && \
         cd /tmp/ijava-kernel && \
-        python3 install.py && \
+        python3 install.py --sys-prefix && \
         cd && rm -rf /tmp/ijava-kernel /tmp/ijava-kernel.zip && \
         echo -e "\e[93m**** Install ZSH Kernel for Jupyter ****\e[38;5;241m" && \
         python3 -m pip install notebook zsh_jupyter_kernel && \
         python3 -m zsh_jupyter_kernel.install --sys-prefix
 
-COPY kernel-2.json /home/jovyan/.local/share/jupyter/kernels/java/kernel.json
+# COPY kernel-2.json /home/jovyan/.local/share/jupyter/kernels/java/kernel.json
 
-RUN echo 'export JAVA_HOME=/home/jovyan/.sdkman/candidates/java/current' >> /etc/environment  && \
-	echo 'export PATH=/home/jovyan/.sdkman/candidates/maven/current/bin:/home/jovyan/.sdkman/candidates/java/current/bin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> /etc/environment && \
+RUN echo 'JAVA_HOME=/home/jovyan/.sdkman/candidates/java/current' >> /etc/environment  && \
+	echo 'PATH=/home/jovyan/.sdkman/candidates/maven/current/bin:/home/jovyan/.sdkman/candidates/java/current/bin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> /etc/environment && \
 	chsh -s /usr/bin/zsh jovyan
+
+#CMD chmod o+w /usr/local/lib/python3.9/dist-packages/zsh_jupyter_kernel/log/
 
 EXPOSE 8888
 ENTRYPOINT ["/init"]
