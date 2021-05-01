@@ -17,7 +17,7 @@ def _get_code_server_cmd(port):
         executable,
         "--auth","none",
         "--disable-telemetry",
-        "--user-data-dir","/codeserver",
+        "--user-data-dir",os.getenv("CODESERVERDATA_DIR"),
         "--port=" + str(port),
     ]
 
