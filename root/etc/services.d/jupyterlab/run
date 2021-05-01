@@ -1,3 +1,3 @@
 #!/usr/bin/with-contenv /bin/zsh
-exec s6-setuidgid "$USER" /runjupyter.sh
+exec s6-setuidgid "$NB_USER" /runjupyter.sh
 

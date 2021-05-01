@@ -1,16 +1,11 @@
 #!/usr/bin/with-contenv bash
 
-echo "### ENV ###"
-env
-echo "### ENV ###"
-
-
-usermod -o -u "$NB_UID" "$USER"
+usermod -o -u "$NB_UID" "$NB_USER"
 
 echo -e "\e[93m**** Running as UID:$NB_UID ****\e[38;5;241m"
 
-chown -R "$USER" "$HOME"
-chown -R "$USER" /notebooks
-chown -R "$USER" /codeserver
-chown -R "$USER" /src
-chown -R "$USER" /usr/local/lib/python3.9/dist-packages/zsh_jupyter_kernel/log
+chown -R "$NB_USER" "$HOME"
+chown -R "$NB_USER" /notebooks
+chown -R "$NB_USER" /codeserver
+chown -R "$NB_USER" /src
+chown -R "$NB_USER" /usr/local/lib/python3.9/dist-packages/zsh_jupyter_kernel/log
