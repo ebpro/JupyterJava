@@ -1,4 +1,5 @@
-ARG BASE_CONTAINER=jupyter/minimal-notebook:584f43f06586
+#ARG BASE_CONTAINER=jupyter/minimal-notebook:584f43f06586
+ARG BASE_CONTAINER=brunoe/jupyterutln-default:master
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Emmanuel Bruno <emmanuel.bruno@univ-tln.fr>"
@@ -7,45 +8,24 @@ USER root
 
 # Install minimal dependencies 
 RUN apt-get update && apt-get install -y --no-install-recommends\
-	bash \
 	coreutils \
-	curl \
+	dnsutils \
 	gnupg \
 	graphviz ttf-bitstream-vera gsfonts \
 	inkscape \
-	less \
 	net-tools \
 	openssh-client \
 	pandoc \
 	procps \
-	python3-pip \
-	texlive-lang-french \
 	tree \
-	vim \
-	zip \
 	zsh && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt && \
-  echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && \
-  locale-gen
-
-# Sets locale as default
-ENV LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
+  apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt 
 
 ## ZSH
 ADD zsh/initzsh.sh /tmp/initzsh.sh
 ADD zsh/p10k.zsh $HOME/.p10k.zsh 
 
-RUN echo -e "\e[93m***** Install Jupyter Lab Extensions ****\e[38;5;241m" && \
-	# curl -fsSL https://deb.nodesource.com/setup_15.x | bash - && \
-	# apt-get update && apt-get install -y --no-install-recommends nodejs gcc g++ make && \
-	pip3 install --no-cache-dir --upgrade jupyter-book==0.10.2 jupyter-server-proxy==3.0.2 && \
-	# jupyter labextension install @jupyterlab/server-proxy && \
-	# nbdime extensions --enable && \
-	npm cache clean --force && \
-    	jupyter lab clean && \ 
-    echo -e "\e[93m**** Install Java Kernel for Jupyter ****\e[38;5;241m" && \
+RUN echo -e "\e[93m**** Install Java Kernel for Jupyter ****\e[38;5;241m" && \
         curl -sL https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip -o /tmp/ijava-kernel.zip && \
         unzip /tmp/ijava-kernel.zip -d /tmp/ijava-kernel && \
         cd /tmp/ijava-kernel && \
@@ -82,32 +62,6 @@ ENV IJAVA_COMPILER_OPTS="-deprecation -Xlint -XprintProcessorInfo -XprintRounds 
 ENV IJAVA_CLASSPATH="${HOME}/lib/*.jar:/usr/local/bin/*.jar"
 ENV IJAVA_STARTUP_SCRIPTS_PATH="/magics/*"
 
-ENV CODESERVEREXT_DIR /opt/codeserver/extensions
-ENV CODE_WORKINGDIR $HOME/work/src
-ENV CODESERVERDATA_DIR $HOME/work/codeserver/data
-RUN echo -e "\e[93m**** Installs Code Server Web ****\e[38;5;241m" && \
- 	curl -fsSL https://code-server.dev/install.sh | sh -s -- --prefix=/opt --method=standalone && \
- 	mkdir -p $CODESERVEREXT_DIR && \
-	PATH=/opt/bin:$PATH code-server \
-	--user-data-dir $CODESERVERDATA_DIR\
-        --extensions-dir $CODESERVEREXT_DIR \
-	--install-extension vscjava.vscode-java-pack \
-	--install-extension redhat.vscode-xml \
-	--install-extension vscode-icons-team.vscode-icons \
-	--install-extension SonarSource.sonarlint-vscode \
-	--install-extension GabrielBB.vscode-lombok \
- 	--install-extension jebbs.plantuml && \
-	groupadd codeserver && \
-        chgrp -R codeserver $CODESERVEREXT_DIR &&\
-        chmod 770 -R $CODESERVEREXT_DIR && \
-        adduser "$NB_USER" codeserver && \
-	fix-permissions /home/$NB_USER 
-
-COPY code-server/codeserver-jupyter_notebook_config.py /tmp/
-COPY code-server/icons $HOME/.jupyter/icons
-RUN cat /tmp/codeserver-jupyter_notebook_config.py >> $HOME/.jupyter/jupyter_notebook_config.py
-
-
 SHELL ["/bin/zsh","-l","-c"]
 
 RUN echo -e "\e[93m**** Installs SDKMan, Java JDKs and Maven3 ****\e[38;5;241m"
@@ -139,10 +93,8 @@ RUN echo -e "\e[93m**** Install latest PlantUML, lombok and java dependencies **
 	curl -sL https://projectlombok.org/downloads/lombok.jar -o "${HOME}/lib/lombok.jar"
 COPY dependencies/* "$HOME/lib/" 
 
-#RUN echo 'JAVA_HOME=/home/jovyan/.sdkman/candidates/java/current' >> /etc/environment  && \
-#	echo 'PATH=/home/jovyan/.sdkman/candidates/maven/current/bin:/home/jovyan/.sdkman/candidates/java/current/bin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' >> /etc/environment && \
-#	chsh -s /usr/bin/zsh jovyan
-ENV PATH=/opt/bin:/home/jovyan/.sdkman/candidates/maven/current/bin:/home/jovyan/.sdkman/candidates/java/current/bin:$PATH
+# Adds Java and Maven to the user path
+ENV PATH=/home/jovyan/.sdkman/candidates/maven/current/bin:/home/jovyan/.sdkman/candidates/java/current/bin:$PATH
 
 RUN echo \
     "<settings xmlns='http://maven.apache.org/SETTINGS/1.2.0' \
