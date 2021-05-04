@@ -1,5 +1,5 @@
 #ARG BASE_CONTAINER=jupyter/minimal-notebook:584f43f06586
-ARG BASE_CONTAINER=brunoe/jupyterutln-default:master
+ARG BASE_CONTAINER=brunoe/jupyterutln-default
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Emmanuel Bruno <emmanuel.bruno@univ-tln.fr>"
