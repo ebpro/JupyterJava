@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 	gnupg \
 	graphviz ttf-bitstream-vera gsfonts \
 	inkscape \
+	iputils-ping \
 	net-tools \
 	openssh-client \
 	pandoc \
