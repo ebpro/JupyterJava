@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 	inkscape \
 	iputils-ping \
 	net-tools \
-	openssh-client \
 	pandoc \
 	procps \
 	tree \
