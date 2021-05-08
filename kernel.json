@@ -1,8 +1,11 @@
 {
-    "argv": ["java","-ea,"-jar","{connection_file}"],
+    "argv": ["java",
+		"-ea",
+		"-jar",
+		"/opt/conda/share/jupyter/kernels/java/ijava-1.3.0.jar",
+		"{connection_file}"],
     "display_name": "Java",
     "env": {},
     "interrupt_mode": "message",
-    "language": "java",
-    "env": {"NOTEBOOK_SRC_SUBDIR":"sandbox"}
+    "language": "java"
 }
