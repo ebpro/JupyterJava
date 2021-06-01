@@ -107,4 +107,4 @@ RUN echo \
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
-WORKDIR /home/jovyan/work
+WORKDIR /home/jovyan
