@@ -74,7 +74,10 @@ RUN curl -s "https://get.sdkman.io" | bash && \
 	source "$HOME/.sdkman/bin/sdkman-init.sh" && \
 #	sdk install java && \
 #       for jdk_version in `sdk list java|grep '|'|grep "hs-adpt"|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|sed '1!G;h;$!d'`; do sdk install java $jdk_version; done && \ 
-	for jdk_version in `sdk list java|grep '|'|grep "hs-adpt"|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|head -1`; do sdk install java $jdk_version; done && \
+#	for jdk_version in `sdk list java|grep '|'|grep "hs-adpt"|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|head -1`; do sdk install java $jdk_version; done && \
+	for jdk_version in `sdk list java|grep '|'|grep -- "-tem"|grep 8|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|head -1`; do sdk install java $jdk_version; done && \
+	for jdk_version in `sdk list java|grep '|'|grep -- "-tem"|grep 11|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|head -1`; do sdk install java $jdk_version; done && \
+	for jdk_version in `sdk list java|grep '|'|grep -- "-tem"|grep 17|tr -s ' '|cut -d '|' -f 6|sed -e 's/^[[:space:]]*/ /g'|sed -e 1b -e '$!d'|head -1`; do sdk install java $jdk_version; done && \
 #        sdk install maven `sdk list maven|grep 3|head -n 1|sed -e 's/[^0-9]*\([0-9.]\+\)/\1/'` && \
 	sdk install maven && \
 #	sdk install mvnd && \
