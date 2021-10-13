@@ -107,6 +107,9 @@ RUN echo \
     </settings>" \
     > $HOME/.sdkman/candidates/maven/current/conf/settings.xml;
 
+RUN echo '#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!' >> $HOME/.zshenv && \ 
+    echo 'export SDKMAN_DIR="$HOME/.sdkman"' >> $HOME/.zshen && \
+    echo '[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"' >> $HOME/.zshenv
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
