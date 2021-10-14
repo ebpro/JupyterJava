@@ -105,10 +105,11 @@ RUN echo \
     xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd'> \
         <localRepository>\${user.home}/work/.m2/repository</localRepository> \
     </settings>" \
-    > $HOME/.sdkman/candidates/maven/current/conf/settings.xml;
+    > $HOME/.sdkman/candidates/maven/current/conf/settings.xml && \
+    ln -s /home/jovyan/work/.m2 /home/jovyan/.m2
 
-RUN echo '#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!' >> $HOME/.zshenv && \ 
-    echo 'export SDKMAN_DIR="$HOME/.sdkman"' >> $HOME/.zshen && \
+RUN echo '#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!' >> $HOME/.zshenv && \
+    echo 'export SDKMAN_DIR="$HOME/.sdkman"' >> $HOME/.zshenv && \
     echo '[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"' >> $HOME/.zshenv
 
 # Switch back to jovyan to avoid accidental container runs as root
