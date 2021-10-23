@@ -1,5 +1,4 @@
-#ARG BASE_CONTAINER=jupyter/minimal-notebook:584f43f06586
-ARG BASE_CONTAINER=brunoe/jupyterutln-default
+ARG BASE_CONTAINER=brunoe/jupyterutln-default:develop
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Emmanuel Bruno <emmanuel.bruno@univ-tln.fr>"
@@ -114,4 +113,5 @@ RUN echo '#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!' >> $HOME/.
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
+RUN mkdir -p /home/jovyan/.ssh && ssh-keyscan -t rsa github.com > /home/jovyan/.ssh/known_hosts
 WORKDIR /home/jovyan
